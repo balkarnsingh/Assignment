@@ -6,6 +6,7 @@ using Assignment.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NetCoreAssignment.Data;
 
 namespace NetCoreAssignment.Controllers
@@ -21,20 +22,21 @@ namespace NetCoreAssignment.Controllers
         // GET: Casts
         public ActionResult Index()
         {
-            var casts = _context.Casts.ToList();
+            var casts = _context.Casts.Include(x => x.Movie).ToList();
             return View(casts);
         }
 
         // GET: Casts/Details/5
         public ActionResult Details(int id)
         {
-            var cast = _context.Casts.FirstOrDefault(x => x.Id == id);
+            var cast = _context.Casts.Include(x => x.Movie).FirstOrDefault(x => x.Id == id);
             return View(cast);
         }
 
         // GET: Casts/Create
         public ActionResult Create()
         {
+            ViewBag.Movies = _context.Movies.ToList();
             return View();
         }
 
@@ -55,6 +57,7 @@ namespace NetCoreAssignment.Controllers
             }
             catch
             {
+                ViewBag.Movies = _context.Movies.ToList();
                 return View();
             }
         }
@@ -63,6 +66,7 @@ namespace NetCoreAssignment.Controllers
         public ActionResult Edit(int id)
         {
             var cast = _context.Casts.FirstOrDefault(x => x.Id == id);
+            ViewBag.Movies = _context.Movies.ToList();
             return View(cast);
         }
 
@@ -83,6 +87,7 @@ namespace NetCoreAssignment.Controllers
             }
             catch
             {
+                ViewBag.Movies = _context.Movies.ToList();
                 return View(cast);
             }
         }
@@ -90,7 +95,7 @@ namespace NetCoreAssignment.Controllers
         // GET: Casts/Delete/5
         public ActionResult Delete(int id)
         {
-            var cast = _context.Casts.FirstOrDefault(x => x.Id == id);
+            var cast = _context.Casts.Include(x=>x.Movie).FirstOrDefault(x => x.Id == id);
             return View(cast);
         }
 
