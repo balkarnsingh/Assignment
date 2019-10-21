@@ -2,23 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assignment.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetCoreAssignment.Data;
 
 namespace NetCoreAssignment.Controllers
 {
+    [Authorize]
     public class CastsController : Controller
     {
+        private readonly ApplicationDbContext _context;
+        public CastsController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         // GET: Casts
         public ActionResult Index()
         {
-            return View();
+            var casts = _context.Casts.ToList();
+            return View(casts);
         }
 
         // GET: Casts/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var cast = _context.Casts.FirstOrDefault(x => x.Id == id);
+            return View(cast);
         }
 
         // GET: Casts/Create
@@ -30,11 +41,15 @@ namespace NetCoreAssignment.Controllers
         // POST: Casts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create([FromForm] Cast cast)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    _context.Casts.Add(cast);
+                    _context.SaveChanges();
+                }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -47,46 +62,53 @@ namespace NetCoreAssignment.Controllers
         // GET: Casts/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var cast = _context.Casts.FirstOrDefault(x => x.Id == id);
+            return View(cast);
         }
 
         // POST: Casts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, [FromForm] Cast cast)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    _context.Update(cast);
+                    _context.SaveChanges();
+                }
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(cast);
             }
         }
 
         // GET: Casts/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var cast = _context.Casts.FirstOrDefault(x => x.Id == id);
+            return View(cast);
         }
 
         // POST: Casts/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, [FromForm] Cast cast)
         {
             try
             {
-                // TODO: Add delete logic here
+                _context.Remove(cast);
+                _context.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(cast);
             }
         }
     }
