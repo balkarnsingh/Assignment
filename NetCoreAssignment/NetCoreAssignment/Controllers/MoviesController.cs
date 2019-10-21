@@ -6,6 +6,7 @@ using Assignment.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NetCoreAssignment.Data;
 
 namespace NetCoreAssignment.Controllers
@@ -28,8 +29,8 @@ namespace NetCoreAssignment.Controllers
         // GET: Movies/Details/5
         public ActionResult Details(int id)
         {
-            var movie = _context.Movies.FirstOrDefault(x => x.Id == id);
-            return View();
+            var movie = _context.Movies.Include(x => x.Casts).FirstOrDefault(x => x.Id == id);
+            return View(movie);
         }
 
         // GET: Movies/Create
@@ -90,7 +91,8 @@ namespace NetCoreAssignment.Controllers
         // GET: Movies/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var movie = _context.Movies.Include(x => x.Casts).FirstOrDefault(x => x.Id == id);
+            return View(movie);
         }
 
         // POST: Movies/Delete/5
