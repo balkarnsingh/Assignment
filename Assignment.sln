@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreAssignment", "..\NetCoreAssignment\NetCoreAssignment\NetCoreAssignment.csproj", "{3F04CB0B-8869-4E9F-B92B-CEC3883BC359}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreAssignment", "NetCoreAssignment\NetCoreAssignment\NetCoreAssignment.csproj", "{3F04CB0B-8869-4E9F-B92B-CEC3883BC359}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
