@@ -14,5 +14,7 @@ namespace Assignment.Models
         public string Lastname { get; set; }
         public Gender Gender { get; set; }
         public string Biography { get; set; }
+        public int MovieId { get; set; }
+        public virtual Movie Movie { get; set; }
     }
 }

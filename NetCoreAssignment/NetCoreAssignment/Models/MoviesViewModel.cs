@@ -17,5 +17,6 @@ namespace Assignment.Models
         [MaxLength(1024, ErrorMessage = "Movie Title can not exceed 1024 characters.")]
         public string Description { get; set; }
         public int Year { get; set; }
+        public virtual ICollection<Cast> Casts { get; set; }
     }
 }
