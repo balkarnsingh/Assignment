@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Assignment.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using NetCoreAssignment.Data;
 
 namespace NetCoreAssignment.Controllers
 {
-    [Authorize]
     public class MoviesController : Controller
     {
         private readonly ApplicationDbContext _context;
